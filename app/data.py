@@ -74,3 +74,11 @@ HOBBIES = [
         "description": "Playing rapid games online and studying endgames.",
     },
 ]
+
+PLACES = [
+    {"name": "Lagos, Nigeria", "lat": 6.5244, "lng": 3.3792},
+    {"name": "San Francisco, CA", "lat": 37.7749, "lng": -122.4194},
+    {"name": "Atlanta, GA", "lat": 33.7490, "lng": -84.3880},
+    {"name": "Seoul, South Korea", "lat": 37.5665, "lng": 126.9780},
+    {"name": "Taipei, Taiwan", "lat": 25.0330, "lng": 121.5654},
+]
