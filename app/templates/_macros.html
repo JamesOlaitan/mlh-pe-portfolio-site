@@ -14,3 +14,14 @@
     {% endif %}
 </article>
 {% endmacro %}
+
+{# Image card for a hobby. #}
+{% macro hobby_card(item) %}
+<article class="hobby-card">
+    <img class="hobby-img" src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name }}">
+    <div class="hobby-body">
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description }}</p>
+    </div>
+</article>
+{% endmacro %}
