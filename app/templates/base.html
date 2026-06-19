@@ -27,6 +27,12 @@
                     <img src="{{ url_for('static', filename='img/logo.svg') }}" alt="Home" />
                 </div>
             </a>
+            <nav class="nav-links">
+                {% for page in nav_pages %}
+                <a href="{{ url_for(page.endpoint) }}"
+                   class="{{ 'active' if request.endpoint == page.endpoint else '' }}">{{ page.name }}</a>
+                {% endfor %}
+            </nav>
         </div>
     </header>
 

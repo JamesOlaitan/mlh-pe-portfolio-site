@@ -7,6 +7,17 @@ from app import data
 load_dotenv()
 app = Flask(__name__)
 
+# Pages shown in the nav bar. Add a page here and it appears automatically.
+NAV_PAGES = [
+    {"name": "Home", "endpoint": "index"},
+    {"name": "Hobbies", "endpoint": "hobbies"},
+]
+
+
+@app.context_processor
+def inject_nav():
+    return {"nav_pages": NAV_PAGES}
+
 
 @app.route('/')
 def index():

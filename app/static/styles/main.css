@@ -26,9 +26,17 @@ body {
     width: 350px;
 }
 
+.nav-content {
+    display: flex;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
 .nav-content .nav-logo {
     height: 60px;
-    margin: auto;
+    margin: 0;
 }
 
 .nav-logo {
@@ -224,4 +232,22 @@ body {
 
 .button-link:hover {
     background: #16407c;
+}
+
+/* Dynamic nav links */
+.nav-links a {
+    color: #cdddf3;
+    text-decoration: none;
+    font-weight: 700;
+    margin-left: 24px;
+    padding-bottom: 6px;
+}
+
+.nav-links a:hover {
+    color: #ffffff;
+}
+
+.nav-links a.active {
+    color: #ffffff;
+    border-bottom: 3px solid #ffffff;
 }
