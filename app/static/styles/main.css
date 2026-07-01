@@ -95,3 +95,23 @@ body {
     font-size: 50px;
     font-weight: 700;
 }
+
+/* Content sections */
+.section {
+    max-width: 900px;
+    margin: 0 auto 50px auto;
+    padding: 0 20px;
+}
+
+.section h2 {
+    color: #1d539f;
+    font-size: 28px;
+    border-bottom: 2px solid #e2e8f3;
+    padding-bottom: 8px;
+}
+
+.about p {
+    font-size: 18px;
+    line-height: 1.7;
+    color: #333;
+}
