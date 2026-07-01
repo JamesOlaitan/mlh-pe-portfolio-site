@@ -51,3 +51,26 @@ EDUCATION = [
         ),
     },
 ]
+
+HOBBIES = [
+    {
+        "name": "Reading",
+        "image": "img/hobbies/reading.jpg",
+        "description": "Working through books on distributed systems, ML, and the occasional novel.",
+    },
+    {
+        "name": "Watching Football",
+        "image": "img/hobbies/football.jpg",
+        "description": "Catching matches whenever I can. And yes, it's football, not soccer.",
+    },
+    {
+        "name": "Watching Series",
+        "image": "img/hobbies/series.jpg",
+        "description": "Unwinding with a good series or a trip to the cinema.",
+    },
+    {
+        "name": "Chess",
+        "image": "img/hobbies/chess.jpg",
+        "description": "Playing rapid games online and studying endgames.",
+    },
+]

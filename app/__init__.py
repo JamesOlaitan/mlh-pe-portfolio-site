@@ -16,4 +16,5 @@ def index():
         url=os.getenv("URL"),
         experiences=data.WORK_EXPERIENCE,
         education=data.EDUCATION,
+        hobbies=data.HOBBIES,
     )

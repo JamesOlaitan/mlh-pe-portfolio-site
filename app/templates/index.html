@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from "_macros.html" import entry %}
+{% from "_macros.html" import entry, hobby_card %}
 
 {% block content %}
 <div class="profile">
@@ -36,5 +36,14 @@
     {% for school in education %}
         {{ entry(school) }}
     {% endfor %}
+</section>
+
+<section class="section">
+    <h2>Hobbies</h2>
+    <div class="hobby-grid">
+        {% for hobby in hobbies %}
+            {{ hobby_card(hobby) }}
+        {% endfor %}
+    </div>
 </section>
 {% endblock %}
