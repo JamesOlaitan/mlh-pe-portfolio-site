@@ -16,5 +16,14 @@ def index():
         url=os.getenv("URL"),
         experiences=data.WORK_EXPERIENCE,
         education=data.EDUCATION,
+    )
+
+
+@app.route('/hobbies')
+def hobbies():
+    return render_template(
+        'hobbies.html',
+        title="Hobbies — James Olaitan",
+        url=os.getenv("URL"),
         hobbies=data.HOBBIES,
     )
