@@ -39,3 +39,15 @@ WORK_EXPERIENCE = [
         "tags": ["Linux", "Bash", "RF/EMC Testing"],
     },
 ]
+
+EDUCATION = [
+    {
+        "title": "B.S. in Computer Science",
+        "subtitle": "Minerva University · San Francisco, CA",
+        "dates": "Sep 2023 – May 2027",
+        "description": (
+            "GPA 3.6/4.0. Coursework: Data Structures & Algorithms, Probability & Statistics, "
+            "Statistical Modeling, and Linear Algebra."
+        ),
+    },
+]

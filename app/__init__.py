@@ -15,4 +15,5 @@ def index():
         title="James Olaitan",
         url=os.getenv("URL"),
         experiences=data.WORK_EXPERIENCE,
+        education=data.EDUCATION,
     )
