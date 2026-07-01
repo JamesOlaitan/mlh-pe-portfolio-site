@@ -251,3 +251,10 @@ body {
     color: #ffffff;
     border-bottom: 3px solid #ffffff;
 }
+
+/* Places visited map */
+#map {
+    height: 420px;
+    border-radius: 8px;
+    border: 1px solid #e2e8f3;
+}
