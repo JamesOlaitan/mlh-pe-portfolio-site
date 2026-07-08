@@ -1,0 +1,27 @@
+{# Reusable card for any timeline-style entry: work experience, education, etc. #}
+{% macro entry(item) %}
+<article class="entry">
+    <div class="entry-head">
+        <h3>{{ item.title }}</h3>
+        {% if item.dates %}<span class="entry-dates">{{ item.dates }}</span>{% endif %}
+    </div>
+    {% if item.subtitle %}<p class="entry-subtitle">{{ item.subtitle }}</p>{% endif %}
+    {% if item.description %}<p class="entry-description">{{ item.description }}</p>{% endif %}
+    {% if item.tags %}
+    <ul class="entry-tags">
+        {% for tag in item.tags %}<li>{{ tag }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+</article>
+{% endmacro %}
+
+{# Image card for a hobby. #}
+{% macro hobby_card(item) %}
+<article class="hobby-card">
+    <img class="hobby-img" src="{{ url_for('static', filename=item.image) }}" alt="{{ item.name }}">
+    <div class="hobby-body">
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description }}</p>
+    </div>
+</article>
+{% endmacro %}
