@@ -258,3 +258,149 @@ body {
     border-radius: 8px;
     border: 1px solid #e2e8f3;
 }
+
+/* Timeline form */
+.timeline-form {
+    background: #fff;
+    border: 1px solid #e2e8f3;
+    border-radius: 8px;
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.form-row label {
+    font-weight: 500;
+    color: #1d539f;
+    font-size: 14px;
+}
+
+.timeline-form input,
+.timeline-form textarea {
+    font-family: "Roboto", serif;
+    font-size: 15px;
+    color: #333;
+    padding: 10px 12px;
+    border: 1px solid #cdddf3;
+    border-radius: 6px;
+    background: #fbfcfe;
+}
+
+.timeline-form input:focus,
+.timeline-form textarea:focus {
+    outline: none;
+    border-color: #1d539f;
+    box-shadow: 0 0 0 3px rgba(29, 83, 159, 0.15);
+}
+
+.timeline-form textarea {
+    resize: vertical;
+    min-height: 72px;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.timeline-form button {
+    background: #1d539f;
+    color: #fff;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.timeline-form button:hover {
+    background: #16407c;
+}
+
+.timeline-form button:disabled {
+    opacity: 0.6;
+    cursor: default;
+}
+
+.timeline-status {
+    font-size: 14px;
+    color: #4b7bc4;
+}
+
+.timeline-status.is-error {
+    color: #b23b3b;
+}
+
+/* Timeline posts */
+.timeline-posts {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.timeline-post {
+    display: flex;
+    gap: 14px;
+    background: #fff;
+    border: 1px solid #e2e8f3;
+    border-radius: 8px;
+    padding: 16px 18px;
+}
+
+.timeline-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #e8eef7;
+    flex-shrink: 0;
+}
+
+.timeline-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.timeline-post-head {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+}
+
+.timeline-name {
+    font-weight: 700;
+    color: #1d539f;
+}
+
+.timeline-email {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.timeline-date {
+    color: #9aa4b2;
+    font-size: 13px;
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.timeline-content {
+    margin: 8px 0 0 0;
+    line-height: 1.6;
+    color: #333;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+.timeline-empty {
+    color: #6b7280;
+}
