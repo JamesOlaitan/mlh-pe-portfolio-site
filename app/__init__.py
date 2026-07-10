@@ -42,6 +42,7 @@ mydb.create_tables([TimelinePost])
 NAV_PAGES = [
     {"name": "Home", "endpoint": "index"},
     {"name": "Hobbies", "endpoint": "hobbies"},
+    {"name": "Timeline", "endpoint": "timeline"},
 ]
 
 
@@ -66,9 +67,18 @@ def index():
 def hobbies():
     return render_template(
         'hobbies.html',
-        title="Hobbies — James Olaitan",
+        title="Hobbies: James Olaitan",
         url=os.getenv("URL"),
         hobbies=data.HOBBIES,
+    )
+
+
+@app.route('/timeline')
+def timeline():
+    return render_template(
+        'timeline.html',
+        title="Timeline: James Olaitan",
+        url=os.getenv("URL"),
     )
 
 
