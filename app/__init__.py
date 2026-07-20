@@ -1,5 +1,6 @@
 import datetime
 import os
+import re
 
 from flask import Flask, render_template, request
 from dotenv import load_dotenv
@@ -10,14 +11,17 @@ from app import data
 
 load_dotenv()
 app = Flask(__name__)
-
-mydb = MySQLDatabase(
-    os.getenv("MYSQL_DATABASE"),
-    user=os.getenv("MYSQL_USER"),
-    password=os.getenv("MYSQL_PASSWORD"),
-    host=os.getenv("MYSQL_HOST"),
-    port=3306,
-)
+if os.getenv("TESTING") == "true":
+    print("Running in test mode")
+    mydb = SqliteDatabase('file:memory?mode=memory&cache=shared', uri=True)
+else:
+    mydb = MySQLDatabase(
+        os.getenv("MYSQL_DATABASE"),
+        user=os.getenv("MYSQL_USER"),
+        password=os.getenv("MYSQL_PASSWORD"),
+        host=os.getenv("MYSQL_HOST"),
+        port=3306,
+    )
 
 print(mydb)
 
@@ -82,19 +86,7 @@ def timeline():
     )
 
 
-@app.route('/api/timeline_post', methods=['POST'])
-def post_time_line_post():
-    """Create a timeline post from form fields and return it as JSON."""
-    name = request.form['name']
-    email = request.form['email']
-    content = request.form['content']
-    timeline_post = TimelinePost.create(name=name, email=email, content=content)
-    return model_to_dict(timeline_post)
-
-
-@app.route('/api/timeline_post', methods=['GET'])
-def get_time_line_post():
-    """Return all timeline posts, newest first."""
+def _timeline_posts_payload():
     return {
         'timeline_posts': [
             model_to_dict(p)
@@ -103,8 +95,39 @@ def get_time_line_post():
     }
 
 
+@app.route('/api/timeline_post', methods=['POST'])
+def post_time_line_post():
+    """Create a timeline post from form fields and return it as JSON."""
+    name = request.form.get('name', '').strip()
+    email = request.form.get('email', '').strip()
+    content = request.form.get('content', '').strip()
+
+    if not name:
+        return "Invalid name", 400
+    if not content:
+        return "Invalid content", 400
+    if not re.match(r"^[^@\s]+@[^@\s]+\.[^@\s]+$", email):
+        return "Invalid email", 400
+
+    TimelinePost.create(name=name, email=email, content=content)
+    return _timeline_posts_payload()
+
+
+@app.route('/api/timeline_post', methods=['GET'])
+def get_time_line_post():
+    """Return all timeline posts, newest first."""
+    return _timeline_posts_payload()
+
+
 @app.route('/api/timeline_post/<int:post_id>', methods=['DELETE'])
 def delete_time_line_post(post_id):
-    """Delete a timeline post by id. Returns how many rows were removed."""
+    """Delete a timeline post by id. Returns the remaining posts."""
+    existing_post = TimelinePost.get_or_none(TimelinePost.id == post_id)
+    if existing_post is None:
+        return "Timeline post not found", 404
+
     deleted = TimelinePost.delete().where(TimelinePost.id == post_id).execute()
-    return {'deleted': deleted}
+    if deleted != 1:
+        return "Timeline post not found", 404
+
+    return _timeline_posts_payload(), 200
