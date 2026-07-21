@@ -1,13 +1,16 @@
 #test_db.py
 
 import unittest
+import os
+os.environ['TESTING'] = 'true'
+
 from peewee import *
 
-from app import TimelinePost
+from app import TimelinePost, mydb
 
 MODELS = [TimelinePost]
 
-# use an in-memort SQLite for testing
+# use an in-memory SQLite for testing
 test_db = SqliteDatabase(':memory:')
 
 class TestTimelinePost(unittest.TestCase):
@@ -22,6 +25,10 @@ class TestTimelinePost(unittest.TestCase):
         test_db.drop_tables(MODELS)
         # Close connection to db.
         test_db.close()
+        # Point TimelinePost back at the app's real database. Otherwise it's
+        # left pointing at the connection we just closed, and any test that
+        # happens to run after this one would be talking to a dead database.
+        mydb.bind(MODELS, bind_refs=False, bind_backrefs=False)
 
     def test_timeline_post(self):
         # Create a new TimelinePost and save it
@@ -30,7 +37,6 @@ class TestTimelinePost(unittest.TestCase):
         second_post = TimelinePost.create(name='Jane Doe', email='jane.doe@example.com', content='Hello world, I\'m Jane!')
         assert second_post.id == 2
 
-    #TODO: get timeline posts and assert that they are correct
     def test_timeline_post_get(self):
         # create new
 
