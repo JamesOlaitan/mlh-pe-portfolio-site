@@ -60,7 +60,7 @@ class AppTestCase(unittest.TestCase):
         assert json["timeline_posts"][1]["email"] == "test@example.com"
         assert json["timeline_posts"][1]["content"] == "Hello world, I'm a test!"
 
-        #DELETE correctly deteletes a post and returns the remaining posts
+        #DELETE correctly deletes a post and returns the remaining posts
         response = self.client.delete("/api/timeline_post/1")
         assert response.status_code == 200
         assert response.is_json
