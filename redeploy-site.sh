@@ -8,11 +8,10 @@ cd ~/mlh-pe-portfolio-site
 # Make the repo match the latest changes on the main branch
 git fetch && git reset origin/main --hard
 
-# Enter the python virtual environment and install dependencies
-source python3-virtualenv/bin/activate
-pip install -r requirements.txt
+# Spin containers down first to avoid out-of-memory issues while rebuilding
+docker compose -f docker-compose.prod.yml down
 
-# Restart the service so it picks up the new code
-systemctl restart myportfolio
+# Rebuild and start the containers in detached mode
+docker compose -f docker-compose.prod.yml up -d --build
 
-echo "Redeploy complete. myportfolio service restarted."
+echo "Redeploy complete."
