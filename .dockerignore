@@ -1,0 +1,9 @@
+.git
+__pycache__
+*.pyc
+.venv
+python3-virtualenv
+flask.sqlite
+.env
+.DS_Store
+tests
