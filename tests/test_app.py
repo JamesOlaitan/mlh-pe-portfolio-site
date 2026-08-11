@@ -82,8 +82,9 @@ class AppTestCase(unittest.TestCase):
         assert response.status_code == 200
         html = response.get_data(as_text=True)
         assert "Timeline" in html
-        assert 'id="timeline-form"' in html
         assert 'id="timeline-posts"' in html
+        # No public post form: visitors shouldn't be able to post to the timeline.
+        assert 'id="timeline-form"' not in html
 
     def test_malformed_timeline_post(self):
         # POST request missing name

@@ -1,24 +1,14 @@
-// Timeline page: submit posts to /api/timeline_post via fetch and render them
+// Timeline page: fetch posts from /api/timeline_post and render them
 // newest-first, with a Gravatar avatar derived from each post's email.
 (function () {
     "use strict";
 
-    var form = document.getElementById("timeline-form");
     var postsEl = document.getElementById("timeline-posts");
-    var statusEl = document.getElementById("timeline-status");
-    if (!form || !postsEl) {
+    if (!postsEl) {
         return;
     }
 
     var API = "/api/timeline_post";
-
-    function setStatus(message, isError) {
-        if (!statusEl) {
-            return;
-        }
-        statusEl.textContent = message || "";
-        statusEl.classList.toggle("is-error", Boolean(isError));
-    }
 
     // Parse the API's created_at, which is an RFC-1123 string from Flask's JSON
     // encoder (e.g. "Thu, 09 Jul 2026 19:42:26 GMT"). Falls back to the ISO-ish
@@ -108,7 +98,7 @@
         if (!posts || !posts.length) {
             var empty = document.createElement("p");
             empty.className = "timeline-empty";
-            empty.textContent = "No posts yet — be the first to say hello!";
+            empty.textContent = "No posts yet.";
             postsEl.appendChild(empty);
             return;
         }
@@ -138,42 +128,12 @@
             })
             .catch(function (err) {
                 postsEl.textContent = "";
-                setStatus("Couldn't load posts: " + err.message, true);
+                var error = document.createElement("p");
+                error.className = "timeline-empty";
+                error.textContent = "Couldn't load posts: " + err.message;
+                postsEl.appendChild(error);
             });
     }
-
-    form.addEventListener("submit", function (event) {
-        event.preventDefault();
-        var button = form.querySelector("button[type=submit]");
-        if (button) {
-            button.disabled = true;
-        }
-        setStatus("Posting…");
-
-        fetch(API, {
-            method: "POST",
-            body: new FormData(form),
-        })
-            .then(function (res) {
-                if (!res.ok) {
-                    throw new Error("Request failed with status " + res.status);
-                }
-                return res.json();
-            })
-            .then(function () {
-                form.reset();
-                setStatus("Posted!");
-                return loadPosts();
-            })
-            .catch(function (err) {
-                setStatus("Couldn't post: " + err.message, true);
-            })
-            .finally(function () {
-                if (button) {
-                    button.disabled = false;
-                }
-            });
-    });
 
     loadPosts();
 })();
