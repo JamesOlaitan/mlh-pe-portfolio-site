@@ -1,4 +1,5 @@
 import datetime
+import hashlib
 import os
 import re
 
@@ -86,10 +87,22 @@ def timeline():
     )
 
 
+def _avatar_hash(email):
+    """MD5 hash of a normalized email for Gravatar, without exposing the email itself."""
+    normalized = email.strip().lower().encode('utf-8')
+    return hashlib.md5(normalized).hexdigest()
+
+
+def _serialize_post(post):
+    data = model_to_dict(post, exclude=[TimelinePost.email])
+    data['avatar_hash'] = _avatar_hash(post.email)
+    return data
+
+
 def _timeline_posts_payload():
     return {
         'timeline_posts': [
-            model_to_dict(p)
+            _serialize_post(p)
             for p in TimelinePost.select().order_by(TimelinePost.created_at.desc())
         ]
     }

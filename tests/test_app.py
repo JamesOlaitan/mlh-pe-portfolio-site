@@ -1,3 +1,4 @@
+import hashlib
 import unittest
 import os
 os.environ['TESTING'] = 'true'
@@ -38,8 +39,9 @@ class AppTestCase(unittest.TestCase):
         json = response.get_json()
         assert len(json["timeline_posts"]) == 1
         assert json["timeline_posts"][0]["name"] == "Test User"
-        assert json["timeline_posts"][0]["email"] == "test@example.com"
         assert json["timeline_posts"][0]["content"] == "Hello world, I'm a test!"
+        assert "email" not in json["timeline_posts"][0]
+        assert json["timeline_posts"][0]["avatar_hash"] == hashlib.md5(b"test@example.com").hexdigest()
 
         #GET returns full timeline json data with all posts correctly ordered
         self.client.post(
@@ -54,11 +56,11 @@ class AppTestCase(unittest.TestCase):
         assert "timeline_posts" in json
         assert len(json["timeline_posts"]) == 2
         assert json["timeline_posts"][0]["name"] == "Test User2"
-        assert json["timeline_posts"][0]["email"] == "test2@example.com"
         assert json["timeline_posts"][0]["content"] == "Hello world, I'm a second test!"
+        assert "email" not in json["timeline_posts"][0]
         assert json["timeline_posts"][1]["name"] == "Test User"
-        assert json["timeline_posts"][1]["email"] == "test@example.com"
         assert json["timeline_posts"][1]["content"] == "Hello world, I'm a test!"
+        assert "email" not in json["timeline_posts"][1]
 
         #DELETE correctly deletes a post and returns the remaining posts
         response = self.client.delete("/api/timeline_post/1")
